@@ -18,6 +18,13 @@ class TestValues(unittest.TestCase):
     we expect it. These will be the expected outputs' forms in order to use
     them in the rest of the code.
     """
+
+    def test_central_V(self):
+        result = get.central_V()
+        # Tests if the function returns a list
+        self.assertIsInstance(result, list)
+        # Tests if the dimension of the output is the expected one
+        self.assertEqual(len(result), 2)
     
     def test_initial_conditions(self):
         result = get.initial_conditions()

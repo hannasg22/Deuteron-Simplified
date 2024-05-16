@@ -10,9 +10,23 @@ We will have functions getting the values of:
 
 import jsonlines
 
+def central_V():
+    file_name = "values_deuteron.jsonl"
+    depth_and_range = [] # Form of the vector will be [V_C0, r0]
+
+    # Open file and read potential data
+    with jsonlines.open(file_name, mode='r') as reader:
+        for line in reader:
+            if "Potential" in line:
+                if "Depth_c" in line:
+                    depth_and_range.append(line["Depth_c"])
+                if "Range_c" in line:
+                    depth_and_range.append(line["Range_c"])
+    return depth_and_range
+
 def initial_conditions():
     file_name = "values_deuteron.jsonl"
-    init_cond = [] # Form of the vector will be [us_0, vs_0, ud_0, vd_0]
+    init_cond = [] # Form of the vector will be [us_0, vs_0]
 
     # Open file and read initial conditions
     with jsonlines.open(file_name, mode='r') as reader:
@@ -28,7 +42,7 @@ def boundary_conditions():
     file_name = "values_deuteron.jsonl"
     bound_cond = []
 
-    # Open file and read boundary conditions
+    # Open file and read boundary condition
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Boundary condition" in line:
