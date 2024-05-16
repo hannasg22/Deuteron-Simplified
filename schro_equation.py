@@ -6,12 +6,11 @@ Important information about units of measurements:
         - Distances: fm
         - Mass: MeV / c**2
         - Energy: MeV
-    We will define the Planck constant with the next dimensions:
+    We will define the reduced Planck constant with the next dimensions:
         h_bar * c = 197.327 MeV * fm
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 from scipy.optimize import root_scalar
 import potential as pot
@@ -34,14 +33,15 @@ def radial_equation(r, y, E):
 
     us, vs = y
     # Definition of parameters
-    h_bar = 197.327 # Planck constant
+    h_bar = 197.327 # Reduced Planck constant
     M = 938.918 # 2 times the reduced mass of deuteron
 
     # System of equations we want to solve
     dus = vs
-    dvs = (M / h_bar) * (E - pot.V_c_squarewell(r))
+    dvs = (M / h_bar) * (pot.V_c_squarewell(r) - E)
 
     return [dus, dvs]
+
 
 
     
