@@ -14,7 +14,7 @@ data_deuteron = [
 ]
 
 # FILE TO SAVE DATA
-file_name = "deuteron_values.jsonl"
+file_name = "values_deuteron.jsonl"
 
 # TO WRITE VALUES IN THE FILE
 with jsonlines.open(file_name, mode='w') as writer:
