@@ -7,32 +7,40 @@ function. Therefore, we can use whatever guess we want and find the proper E
 value: the eigenvalue.
 
 """
-# DIFFERENCE BETWEEN EIGENFUNCTIONS WITH E_GUESS AND OUR BOUNDARY CONDITIONS
-def error_E(E_guess, r_range, init_cond, us_fin, ud_fin):
-    """This function analyses if the results obtained with E_guess
-    match the desired boundary conditions.
 
-    For that we solve the system of equations with E_guess and compare
-    the result in the ending point with the desried boundary conditions.
+import numpy as np
+from scipy.integrate import solve_ivp
+from scipy.integrate import root_scalar
+import potential as pot
+import get_values as get
+import schro_equation as eq
+
+# DIFFERENCE BETWEEN EIGENFUNCTION WITH E_GUESS AND OUR BOUNDARY CONDITION
+def error_E(E_guess):
+    """This function analyses if the result obtained with E_guess matchs the
+    desired boundary condition.
+
+    For that we solve the system of equations with E_guess and compare the
+    result in the ending point with the desried boundary condition.
 
     Inputs:
         E_guess: value of E for which we solve the equations
-        r_range: range of r in which we evaluate the equations
-        init_cond: Initial conditions for the value of the functions
-                   and its derivatives
-        us_fin: desired boundary condition for the final point of us
-        ud_fin: same but for ud
 
     Output:
-        error: difference between the final point values with E_guess
-               and the actual values we want to achieve
+        error: difference between the final point value with E_guess and the
+               actual value we want to achieve
     """
-    
+
+    # Here we implement the needed data in the function
+    r_values = get.range_of_radius()
+    initial_values = get.initial_conditions()
+    final_value = get.boundary_condition()
+
+    # Solve system with solve_ivp function using RK45 method
     solut_guess = solve_ivp(lambda r, y: radial_equations(r, y, E_guess),
-                            r_range, init_cond, method='RK45', max_step=0.01)
+                            r_values, initial_values, method='RK45', max_step=0.01)
+
     # Difference between solution with E_guess and the actual value we look for
-    error_us = solut_guess.y[0][-1] - us_fin
-    error_ud = solut_guess.y[2][-1] - ud_fin
-    # Total error
-    error = error_us + error_ud
+    error = solut_guess.y[0][-1] - final_value
+
     return error

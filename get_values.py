@@ -38,18 +38,15 @@ def initial_conditions():
                     init_cond.append(line["vs_0"])
     return init_cond
    
-def boundary_conditions():
+def boundary_condition():
     file_name = "values_deuteron.jsonl"
-    bound_cond = []
 
     # Open file and read boundary condition
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Boundary condition" in line:
-                bound_cond.append(line)
-
-    us_fin = bound_cond[0]['us_fin']
-    return us_fin
+                bound_cond = line['us_fin']
+    return bound_cond
 
 def range_of_radius():
     file_name = "values_deuteron.jsonl"
