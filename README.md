@@ -22,6 +22,22 @@ This can also be described by different models. One option, the one we will use,
 $$ V(r < r_0)=-V_0, \hspace{0.5cm} V(r \geq r_0)=0.
 $$
 
+where $V_0$ and $r_0$ are defined again from experimental data. This will be the exact form of the central potential component $V_C$.
+
+Now, let us derive the form of the Hamiltonian using deuteron's properties. The deuteron has total isospin $T=0$ and spin parity $J^{\pi}=1^+$. Since the spin of both proton and neutron is $s_n=s_p=1/2$, the total spin could in principle be $S=1,0$. Apart from that, in analogy with the Hydrogen atom, it is reasonable to assume that the ground state of the deuteron also has zero orbital angular momentum, so: $L=0$. At this point, due to the asymmetry of the whole wavefunction in a system of two fermions, we have $S=1$ for the total spin.
+
+These results lead us from the total Hamiltonian
+
+$$ H=-\frac{\hbar^2}{2M}\frac{d^2}{dr^2}r+\frac{\hbar^2}{M}\frac{L(L+1)}{r^2}+V_C(r)
+$$
+
+to the Schrödinger equation for the deuteron:
+
+$$ -\frac{\hbar^2}{2M}\frac{d^2u_s}{dr^2}r+V_C(r)u_s(r)=Eu_s(r)
+$$
+
+This is the equation that this code will solve! So, we will **get the deuteron's wavefunction $u_s$ and energy** (by experimental data we know it is: **$E=-2.225 MeV$**, which is the same as its binding energy but with a negative value).
+
 ## How to get the results :gear:
 
 ## Structure of the project :card_index_dividers:
