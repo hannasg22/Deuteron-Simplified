@@ -61,8 +61,7 @@ class TestCentralPotential(unittest.TestCase):
     @settings(max_examples=20)
     def test_V_c_squarewell(self, r_values):
         # Get actual values for potential depth and range from data file
-        V0_c = get.central_V()[0]
-        r0_c = get.central_V()[1]       
+        V0_c, r0_c = get.central_V()      
         # Take different probe values of r
         r = r_values.draw(st.floats(min_value = 0.0, max_value = 10.0))
         if r <= r0_c:
@@ -71,8 +70,15 @@ class TestCentralPotential(unittest.TestCase):
             V_expected = 0.0
         result = pot.V_c_squarewell(r)
         # Tests if the function returns the expected V value
-        self.assertEqual(result, V_expected)
+        error_msg = f"""Error when calculating the potential value for r = {r},
+                     we expect the value {V_expected} but got {result}."""
+        self.assertAlmostEqual(result, V_expected, msg=error_msg)
+        
 
+# TESTS FOR schro_equation.py
+
+
+# TESTS FOR find_energy.py
 
 if __name__ == '__main__':
     unittest.main()
