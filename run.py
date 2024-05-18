@@ -10,6 +10,7 @@ later we solve the equations for that proper energy with solve_ivp.
 """
 
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 from scipy.optimize import root_scalar
@@ -27,11 +28,28 @@ solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_binding),
                            get.range_of_radius(), get.initial_conditions(),
                            method = 'RK45', max_step = 0.01)
 
+
 # To visualize u(r) vs. r and V(r)
 r_values = solution_final.t
 u_values = solution_final.y[0]
 V_values = [pot.V_c_squarewell(r) for r in r_values]
 
+sns.set_style('darkgrid')
+
+plt.figure(figsize=(8, 6))
+plt.plot(r_values, 20 * u_values, label='u(r)', color='blue', linewidth=2)
+plt.plot(r_values, V_values, label='Potential V(r) (MeV)', color='green', linewidth=2)
+plt.axhline(y=E_binding, color='red', linestyle='--', linewidth=1.5,
+            label='Binding energy E (MeV)')
+plt.xlabel('r (fm)', fontsize=12)
+plt.ylabel('u(r)', fontsize=12)
+plt.title('Eigenfunction u(r) vs. distance r', fontsize=14)
+plt.legend(fontsize=10)
+plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+plt.show()
+
+
+"""
 # Graph of function u(r), V(r) and E
 plt.figure()
 plt.plot(r_values, 20 * u_values, label='u(r)')
@@ -44,3 +62,4 @@ plt.title('Eigenfunction u(r) vs. ditance r')
 plt.legend()
 plt.grid(True)
 plt.show()
+"""
