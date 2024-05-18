@@ -33,8 +33,8 @@ class TestValues(unittest.TestCase):
         # Tests if the dimension of the output is the expected one
         self.assertEqual(len(result), 2)
 
-    def test_boundary_conditions(self):
-        result = get.boundary_conditions()
+    def test_boundary_condition(self):
+        result = get.boundary_condition()
         # Tests if the function returns a tuple
         self.assertIsInstance(result, float)
         
@@ -49,6 +49,32 @@ class TestValues(unittest.TestCase):
         result = get.energy_guess()
         # Tests if the function returns a float
         self.assertIsInstance(result, float)
+
+# TESTS FOR potential.py
+class TestCentralPotential(unittest.TestCase):
+    """We extract the depth and range of the potential from the actual data and
+    compare the results we expect with the ones the function V_c_squarewell
+    returns.
+    """
+    def setUp(self):
+        # We call GetValues to initialize values
+        self.GetValues()
+
+    def GetValues(self):
+        self.V0_c = get.central_V()[0]
+        self.r0_c = get.central_V()[1]
+
+    @given(r_values=st.data())
+    @settings(max_examples=20)
+    def test_V_c_squarewell(self, r_values):
+        # Tests for probe values of r
+        r = r_values.draw(st.floats(min_value = 0.0, max_value = 15.0))
+        if r <= self.r0_c:
+            V_expected = -self.V0_c
+        else:
+            V_expected = 0.0
+        result = pot.V_c_squarewell(r)
+        self.assertEqual(result, V_expected)
 
 
 if __name__ == '__main__':
