@@ -14,7 +14,6 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.optimize import root_scalar
 import potential as pot
-import get_values as get
 
 def radial_equation(r, y, E):
     """This function defines from our 2nd order differential equation a system
@@ -38,10 +37,6 @@ def radial_equation(r, y, E):
 
     # System of equations we want to solve
     dus = vs
-    dvs = (M / h_bar) * (pot.V_c_squarewell(r) - E)
+    dvs = (M / (h_bar**2)) * (pot.V_c_squarewell(r) - E) * us
 
     return [dus, dvs]
-
-
-
-    
