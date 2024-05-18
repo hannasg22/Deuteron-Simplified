@@ -1,5 +1,6 @@
 """This module will define all variables described in the values_deuteron.jsonl
 to later use them in the potential.py, deuteron.py and run.py files.
+
 We will have functions getting the values of:
     - Potential depth and range
     - Initial conditions
@@ -71,9 +72,3 @@ def energy_guess():
             if "Energy guess" in line:
                 E_guess = line["Energy guess"]
     return E_guess
-
-print(central_V())
-print(initial_conditions())
-print(boundary_condition())
-print(range_of_radius())
-print(energy_guess())
