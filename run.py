@@ -29,7 +29,7 @@ solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_binding),
                            method = 'RK45', max_step = 0.01)
 
 
-# To visualize u(r) vs. r and V(r)
+# VISUALIZE u(r), V(r) and E vs. r
 r_values = solution_final.t
 u_values = solution_final.y[0]
 V_values = [pot.V_c_squarewell(r) for r in r_values]
