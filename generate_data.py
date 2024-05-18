@@ -10,7 +10,7 @@ data_deuteron = [
     {"Initial conditions": "us wavefunction", "us_0": 0.0, "vs_0": 1.0},
     {"Boundary condition": "Final value", "us_fin": 0.2},
     {"Range of radius": "Range r", "r_initial": 0.001, "r_final": 10.0},
-    {"Energy guess": -1.5}
+    {"Energy guess": -2.0}
 ]
 
 # FILE TO SAVE DATA
