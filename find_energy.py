@@ -33,12 +33,13 @@ def error_E(E_guess):
     """
 
     # Get the conditions to solve the problem
-    init_cond = get.initial_conditions()
+    ini_cond = get.initial_conditions()
     us_fin = get.boundary_condition()
     r_range = get.range_of_radius()
 
     # Solve for E_guess
-    solution_guess = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_guess), r_range, init_cond, method = 'RK45', max_step = 0.01)
+    solution_guess = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_guess),
+                               r_range, ini_cond, method='RK45', max_step=0.01)
 
     # Difference between solution with E_guess and the actual value we want
     error = solution_guess.y[0][-1] - us_fin

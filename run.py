@@ -22,7 +22,6 @@ import find_energy as find
 E_value = root_scalar(find.error_E, method='secant', x0=get.energy_guess())
 E_binding = E_value.root
 print(E_binding)
-
 # Get the eigenfunction with the proper E value
 solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_binding),
                            get.range_of_radius(), get.initial_conditions(),
@@ -37,7 +36,8 @@ V_values = [pot.V_c_squarewell(r) for r in r_values]
 plt.figure()
 plt.plot(r_values, 20 * u_values, label='u(r)')
 plt.plot(r_values, V_values, label='Potential V(r) (MeV)')
-plt.axhline(y=E_binding, color='r', linestyle='--', label='Binding energy E (MeV)')
+plt.axhline(y=E_binding, color='r', linestyle='--',
+            label='Binding energy E (MeV)')
 plt.xlabel('r (fm)')
 plt.ylabel('u(r)')
 plt.title('Eigenfunction u(r) vs. ditance r')
