@@ -52,28 +52,25 @@ class TestValues(unittest.TestCase):
 
 # TESTS FOR potential.py
 class TestCentralPotential(unittest.TestCase):
-    """We extract the depth and range of the potential from the actual data and
+    """We extract the depth and range of the potential from the real data and
     compare the results we expect with the ones the function V_c_squarewell
     returns.
     """
-    def setUp(self):
-        # We call GetValues to initialize values
-        self.GetValues()
-
-    def GetValues(self):
-        self.V0_c = get.central_V()[0]
-        self.r0_c = get.central_V()[1]
-
+ 
     @given(r_values=st.data())
     @settings(max_examples=20)
     def test_V_c_squarewell(self, r_values):
-        # Tests for probe values of r
-        r = r_values.draw(st.floats(min_value = 0.0, max_value = 15.0))
-        if r <= self.r0_c:
-            V_expected = -self.V0_c
+        # Get actual values for potential depth and range from data file
+        V0_c = get.central_V()[0]
+        r0_c = get.central_V()[1]       
+        # Take different probe values of r
+        r = r_values.draw(st.floats(min_value = 0.0, max_value = 10.0))
+        if r <= r0_c:
+            V_expected = -V0_c
         else:
             V_expected = 0.0
         result = pot.V_c_squarewell(r)
+        # Tests if the function returns the expected V value
         self.assertEqual(result, V_expected)
 
 
