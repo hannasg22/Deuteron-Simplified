@@ -37,29 +37,16 @@ V_values = [pot.V_c_squarewell(r) for r in r_values]
 sns.set_style('darkgrid')
 
 plt.figure(figsize=(8, 6))
-plt.plot(r_values, 20 * u_values, label='u(r)', color='blue', linewidth=2)
-plt.plot(r_values, V_values, label='Potential V(r) (MeV)', color='green', linewidth=2)
-plt.axhline(y=E_binding, color='red', linestyle='--', linewidth=1.5,
-            label='Binding energy E (MeV)')
-plt.xlabel('r (fm)', fontsize=12)
-plt.ylabel('u(r)', fontsize=12)
-plt.title('Eigenfunction u(r) vs. distance r', fontsize=14)
-plt.legend(fontsize=10)
+plt.rcParams['axes.facecolor'] = 'black'
+plt.plot(r_values, 20 * u_values, label='$u_s(r)$', color='deeppink', linewidth=2)
+plt.plot(r_values, V_values, label='Potential $V_c(r) (MeV)$', color='lightpink', linewidth=2)
+plt.axhline(y=E_binding, color='lavender', linestyle='--', linewidth=2.0,
+            label='Binding energy $E (MeV)$')
+plt.xlim(get.range_of_radius()[0], get.range_of_radius()[1])
+plt.xlabel('$r (fm)$', fontsize=12, color='white')
+plt.ylabel('$u_s(r)$', fontsize=12, color='white')
+plt.suptitle('Graphic representation of the eigenfunction (with enlarged dimensions), the potential and the binding energy.', fontsize=10)
+plt.title('$u_s(r)$ vs. $r (fm)$', fontsize=16)
+plt.legend(fontsize=10, facecolor='black', edgecolor='white', labelcolor='white')
 plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 plt.show()
-
-
-"""
-# Graph of function u(r), V(r) and E
-plt.figure()
-plt.plot(r_values, 20 * u_values, label='u(r)')
-plt.plot(r_values, V_values, label='Potential V(r) (MeV)')
-plt.axhline(y=E_binding, color='r', linestyle='--',
-            label='Binding energy E (MeV)')
-plt.xlabel('r (fm)')
-plt.ylabel('u(r)')
-plt.title('Eigenfunction u(r) vs. ditance r')
-plt.legend()
-plt.grid(True)
-plt.show()
-"""
