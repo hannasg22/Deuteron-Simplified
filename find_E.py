@@ -30,15 +30,35 @@ def error_E(E_guess):
         error: difference between the final point value with E_guess
                and the actual value we want to achieve
     """
+    # Get info from get_values
     us_fin = get.boundary_condition()
     E_guess = get.energy_guess()
-
+    r_range = get.range_of_radius()
+    ini_cond = get.initial_conditions()
+    
     # Solve the system with 'RK45' method
     solution_guess = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_guess),
-                            r_range, init_cond, method='RK45', max_step=0.01)
+                               r_range, ini_cond, method='RK45', max_step=0.01)
     # Difference between solution with E_guess and the actual value we look for
     error_us = solution_guess.y[0][-1] - us_fin
     # Total error
     error = error_us + error_ud
     return error
 
+def root():
+
+    us_fin = get.boundary_condition()
+    r_range = get.range_of_radius()
+    ini_cond = get.initial_conditions()
+    
+    # Root finding process to get E
+    E_value = root_scalar(error_E, method='secant', bracket=[-5.0, 1.0])
+
+    # Solve system, but now with proper E value
+    solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_value),
+                               r_range, ini_cond, method='RK45', max_step=0.01)
+    return solution_final, E_value
+
+
+    
+    
