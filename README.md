@@ -33,10 +33,14 @@ $$
 
 to the Schrödinger equation for the deuteron:
 
-$$ -\frac{\hbar^2}{2M}\frac{d^2u_s}{dr^2}r+V_C(r)u_s(r)=Eu_s(r)
+$$ -\frac{\hbar^2}{2M}\frac{d^2u_S}{dr^2}r+V_C(r)u_s(r)=Eu_S(r)
 $$
 
-This is the equation that this code will solve! So, we will **get the deuteron's wavefunction $u_s$ and energy** (by experimental data we know it is: **$E=-2.225 MeV$**, which is the same as its binding energy but with a negative value).
+This is the equation that this code will solve! So, we will **get the deuteron's wavefunction $u_S$ and energy** (by experimental data we know it is: **$E=-2.225 MeV$**, which is the same as its binding energy but with a negative value).
+
+### Further information
+
+As already said, this is actually the most simplified model for the deuteron. In fact, the potential would have a tensorial part, which generates a mixture between the eigenfunction $u_S$ for the s-wave ($L=0$) and $u_D$ for the d-wave ($L=2$). This could be the next step for this code!
 
 ## How to get the results :gear:
 
