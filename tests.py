@@ -5,7 +5,7 @@ expecting and that the functions are actually doing what they are designed for.
 """
 
 import unittest
-import jsonlines
+import numpy as np
 from hypothesis import given, settings
 from hypothesis import strategies as st
 import get_values as get
@@ -63,7 +63,7 @@ class TestCentralPotential(unittest.TestCase):
         # Get actual values for potential depth and range from data file
         V0_c, r0_c = get.central_V()      
         # Take different probe values of r
-        r = r_values.draw(st.floats(min_value = 0.0, max_value = 10.0))
+        r = r_values.draw(st.floats(min_value=0.0, max_value=10.0))
         if r <= r0_c:
             V_expected = -V0_c
         else:
@@ -75,14 +75,35 @@ class TestCentralPotential(unittest.TestCase):
         self.assertAlmostEqual(result, V_expected, msg=error_msg)
         
 
-# TESTS FOR schro_equation.py
+
+class TestSchroedingerEquation(unittest.TestCase):
+    """We just test if the function returns a list and if the length is the
+    one we can expect.
+    """
+    @given(st.floats(min_value=0.1, max_value=10.0), # r
+           st.lists(st.floats(min_value=-1.0, max_value=1.0),
+                    min_size=2, max_size=2), # y
+           st.floats(min_value=-5.0, max_value=5.0) # E
+           )
+    @settings(max_examples=5)
+    def test_radial_equation(self, r, y, E):
+        result = eq.radial_equation(r, y, E)
+        
+        # Tests if the function returns a list
+        self.assertIsInstance(result, list)
+        # Tests if the size of the function is the one expected
+        self.assertEqual(len(result), 2)
+        # Tests that the type of object returned is the one expected
+        self.assertIsInstance(result[0], (float, np.float64))
+        self.assertIsInstance(result[1], (float, np.float64))
+
 
 # TESTS FOR find_energy.py
 class TestErrorE(unittest.TestCase):
-    """We will test that for the actual value of the eigenvalue we get a small
+    """We test that for the actual value of the eigenvalue we get a small
     error. This means that the function will find the root near that result.
+    BEWARE: the rest of the conditions must be also appropriate.
     """
-
     def test_error_E(self):
         # Define the actual value of the binding energy for deuteron
         E_real = -2.25 # MeV
