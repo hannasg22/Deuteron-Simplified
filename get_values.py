@@ -72,3 +72,8 @@ def energy_guess():
                 E_guess = line["Energy guess"]
     return E_guess
 
+print(central_V())
+print(initial_conditions())
+print(boundary_condition())
+print(range_of_radius())
+print(energy_guess())
