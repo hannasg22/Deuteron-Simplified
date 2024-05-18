@@ -1,16 +1,16 @@
 # Simplified model for the deuteron
 
-## Goal of the code
+## Goal of the code :white_check_mark:
 
 Bfriefly explained, this code is provided to solve specifically the most simplified case of the deuteron equation(s) and get its eigenfunction and eigenvalue.
 
-In order to find the results, a specific model for the potential is implemented. But another option could be applied, making use of the user's preferred election.
+In order to find the results, a particular model for the potential is implemented. But another option could be applied, making use of the user's preferred election! :smile:
 
-## Theory
+## Theory :books:
 
-## How to get the results
+## How to get the results :gear:
 
-## Structure of the project
+## Structure of the project :card_index_dividers:
 The code is divided in the next files:
 - In [generate_data.py](generate_data.py) we insert the data we want to apply for the potential and for the initial and boundary conditions. This will generate a data file called [values_deuteron.jsonl](values_deuteron.jsonl) in JSON lines format and it will allow us to read the data and work with it on an easy way.
 - In [get_values.py](get_values.py) we extract the data saved in [values_deuteron.jsonl](values_deuteron.jsonl) to later insert it easily in the rest of the code.
