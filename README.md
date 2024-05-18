@@ -8,6 +8,20 @@ In order to find the results, a particular model for the potential is implemente
 
 ## Theory :books:
 
+With the aim of better understanding what it is done in this code, let us introduce the main theoretical concepts.
+
+### Main idea
+
+The deuteron is the **only bound state of two nucleons** and its bound is weak, therefore it only exists in the ground state. It is formed by one proton and one neutron and the nuclear force between them has the next properties (the most important ones for the goal of this project): attractive (to form the bound state), short range (of order of $\sim 1fm$ ) and non-central (so it has a tensor component). 
+
+All these assumptions have been made through the obtained experimental data. Furthermore, the potential describing the interaction between both particles has been contructed more precisely to fit the actual results. It can be widely analysed and it will show many different components. We instead will focus just on the **main quantity**, avoiding the tentsorial part:
+- Central potential $V_C$
+
+This can also be described by different models. One option, the one we will use, is defining it through a **square well potential**:
+
+$$ V(r < r_0)=-V_0, \hspace{0.5cm} V(r \geq r_0)=0.
+$$
+
 ## How to get the results :gear:
 
 ## Structure of the project :card_index_dividers:
