@@ -73,9 +73,8 @@ class TestCentralPotential(unittest.TestCase):
         error_msg = f"""Error when calculating the potential value for r = {r},
                      we expect the value {V_expected} but got {result}."""
         self.assertAlmostEqual(result, V_expected, msg=error_msg)
-        
 
-
+# TEST FOR schro_equation.py
 class TestSchroedingerEquation(unittest.TestCase):
     """We just test if the function returns a list and if the length is the
     one we can expect.
@@ -97,7 +96,6 @@ class TestSchroedingerEquation(unittest.TestCase):
         self.assertIsInstance(result[0], (float, np.float64))
         self.assertIsInstance(result[1], (float, np.float64))
 
-
 # TESTS FOR find_energy.py
 class TestErrorE(unittest.TestCase):
     """We test that for the actual value of the eigenvalue we get a small
@@ -115,8 +113,6 @@ class TestErrorE(unittest.TestCase):
         error_msg = f"""This error function will not find the root near enough
                      of the binding energy {E_real}."""
         self.assertGreater(eps, error_min, msg=error_msg)
-
-
 
 if __name__ == '__main__':
     unittest.main()
