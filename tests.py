@@ -6,11 +6,12 @@ expecting and that the functions are actually doing what they are designed for.
 
 import unittest
 import jsonlines
-import potential as pot
-import get_values as get
 from hypothesis import given, settings
 from hypothesis import strategies as st
-
+import get_values as get
+import potential as pot
+import schro_equation as eq
+import find_energy as find
 
 # TESTS FOR get_values.py
 class TestValues(unittest.TestCase):
@@ -56,7 +57,6 @@ class TestCentralPotential(unittest.TestCase):
     compare the results we expect with the ones the function V_c_squarewell
     returns.
     """
- 
     @given(r_values=st.data())
     @settings(max_examples=20)
     def test_V_c_squarewell(self, r_values):
@@ -77,8 +77,25 @@ class TestCentralPotential(unittest.TestCase):
 
 # TESTS FOR schro_equation.py
 
-
 # TESTS FOR find_energy.py
+class TestErrorE(unittest.TestCase):
+    """We will test that for the actual value of the eigenvalue we get a small
+    error. This means that the function will find the root near that result.
+    """
+
+    def test_error_E(self):
+        # Define the actual value of the binding energy for deuteron
+        E_real = -2.25 # MeV
+        # Error value with real binding energy
+        error_min = abs(find.error_E(E_real))
+        # Tolerance we accept for the error
+        eps = 0.1
+        # Tests if the error obtained for the real E is actually small
+        error_msg = f"""This error function will not find the root near enough
+                     of the binding energy {E_real}."""
+        self.assertGreater(eps, error_min, msg=error_msg)
+
+
 
 if __name__ == '__main__':
     unittest.main()
