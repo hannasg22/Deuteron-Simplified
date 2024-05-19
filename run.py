@@ -1,12 +1,10 @@
 """Results will be obtained through this part of the code. Here we define the
-root finding process.
+root finding process to reach the energy and the visualization of the solution.
 
-To follow this process we will use two functions implemented by SciPy:
-    - root_scalar --> to find the E value which obeys the boundary condition
-    - solve_ivp --> to get the eigenfunction with the proper E value
-
-So, first we find the actual value of E eigenvalue through root_scalar and
-later we solve the equations for that proper energy with solve_ivp.
+To obtain our results we will use two functions implemented by SciPy:
+    1. optimize.root_scalar --> to find the E value which obeys the boundary
+                               condition
+    2. integrate.solve_ivp --> to get the eigenfunction with the proper E value
 """
 
 import numpy as np
@@ -19,17 +17,16 @@ import schro_equation as eq
 import get_values as get
 import find_energy as find
 
-# Find the value of E
+# Find the correct value of E
 E_value = root_scalar(find.error_E, method='secant', x0=get.energy_guess())
-E_binding = E_value.root
-print(E_binding)
-# Get the eigenfunction with the proper E value
-solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_binding),
+E_final = E_value.root
+
+# Get the eigenfunction with the proper E value, E_final
+solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_final),
                            get.range_of_radius(), get.initial_conditions(),
                            method = 'RK45', max_step = 0.01)
 
-
-# VISUALIZE u(r), V(r) and E vs. r
+# VISUALIZE u(r), V(r) and E vs. r. Settings for the graph
 r_values = solution_final.t
 u_values = solution_final.y[0]
 V_values = [pot.V_c_squarewell(r) for r in r_values]
@@ -40,8 +37,7 @@ plt.figure(figsize=(8, 6))
 plt.rcParams['axes.facecolor'] = 'black'
 plt.plot(r_values, 20 * u_values, label='$u_s(r)$', color='deeppink', linewidth=2)
 plt.plot(r_values, V_values, label='Potential $V_c(r) (MeV)$', color='lightpink', linewidth=2)
-plt.axhline(y=E_binding, color='lavender', linestyle='--', linewidth=2.0,
-            label='Binding energy $E (MeV)$')
+plt.axhline(y=E_final, color='lavender', linestyle='--', linewidth=2.0, label='Binding energy $E (MeV)$')
 plt.xlim(get.range_of_radius()[0], get.range_of_radius()[1])
 plt.xlabel('$r (fm)$', fontsize=12, color='white')
 plt.ylabel('$u_s(r)$', fontsize=12, color='white')
