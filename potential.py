@@ -1,11 +1,9 @@
-"""This module will contain the potential used to solve our equations.
+"""This file contains the potential used to solve the system.
 
 Parameters needed in the potential:
-    r0 : r value for the range of the square well potential (dimensions: fm)
-    V_C0 : depth of the potential (dimensions: MeV)
+    r0_c: r value for the range of the square well potential (units: fm)
+    V0_c: depth of the potential (units: MeV)
 These values must be chosen due to experimental data.
-
-For further information check README.md section.
 """
 
 import get_values as get
@@ -16,15 +14,14 @@ def V_c_squarewell(r):
     introduced value of r.         
 
     Input:
-        r : distance between proton and neutron
-
+        r: distance between proton and neutron
     Output:
-        Value of the potential for that certain r
+        Value of the potential for that r
     """
-
-    # Inserting values for central potential
+    # Inserting values for the central potential from get_values.py
     V0_c = get.central_V()[0]
     r0_c = get.central_V()[1]
+    # Define the square well potential
     if r <= r0_c:
         return -V0_c
     else:
