@@ -1,7 +1,7 @@
-"""This module will define all variables described in the values_deuteron.jsonl
-to later use them in the potential.py, deuteron.py and run.py files.
+"""This module takes out all the variables described in values_deuteron.jsonl
+to later apply them in the other files.
 
-We will have functions getting the values of:
+We have functions getting the values of:
     - Potential depth and range
     - Initial conditions
     - Boundary conditions
@@ -13,9 +13,9 @@ import jsonlines
 
 def central_V():
     file_name = "values_deuteron.jsonl"
-    depth_and_range = [] # Form of the vector will be [V_C0, r0]
+    depth_and_range = [] # Form of the list will be [V0_c, r0_c]
 
-    # Open file and read potential data
+    # Open values_deuteron.jsonl file and read the potential data
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Potential" in line:
@@ -29,7 +29,7 @@ def initial_conditions():
     file_name = "values_deuteron.jsonl"
     init_cond = [] # Form of the vector will be [us_0, vs_0]
 
-    # Open file and read initial conditions
+    # Open values_deuteron.jsonl file and read the initial conditions
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Initial conditions" in line:
@@ -42,7 +42,7 @@ def initial_conditions():
 def boundary_condition():
     file_name = "values_deuteron.jsonl"
 
-    # Open file and read boundary condition
+    # Open values_deuteron.jsonl file and read the boundary condition
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Boundary condition" in line:
@@ -53,7 +53,7 @@ def range_of_radius():
     file_name = "values_deuteron.jsonl"
     r_range = []
 
-    # Open file and read values for minimum and maximum r
+    # Open values_deuteron.jsonl file and read the range of the radius
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Range of radius" in line:
@@ -66,7 +66,7 @@ def range_of_radius():
 def energy_guess():
     file_name = "values_deuteron.jsonl"
 
-    # Open file and read first guess of E value
+    # Open values_deuteron.jsonl file and read the first guess for the energy
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Energy guess" in line:
