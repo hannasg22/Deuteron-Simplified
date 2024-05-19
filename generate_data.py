@@ -1,10 +1,10 @@
-"""This module takes the values we want to use in the model and saves them
-in a file values_deuteron.jsonl to later use them in the calculations.
+"""This module contains the values we want to use in the model and saves them
+in the file values_deuteron.jsonl to later put them in the calculations.
 """
 
 import jsonlines
 
-# DATA FOR DEUTERON MODEL
+# DATA FOR THE DEUTERON MODEL
 data_deuteron = [
     {"Potential": "Central", "Depth_c": 36.7, "Range_c": 2.0},
     {"Initial conditions": "us wavefunction", "us_0": 0.0, "vs_0": 1.0},
@@ -13,10 +13,10 @@ data_deuteron = [
     {"Energy guess": -2.0}
 ]
 
-# FILE TO SAVE DATA
+# FILE WHERE WE SAVE THE DATA
 file_name = "values_deuteron.jsonl"
 
-# TO WRITE VALUES IN THE FILE
+# WRITE THE VALUES IN THE FILE
 with jsonlines.open(file_name, mode='w') as writer:
     writer.write_all(data_deuteron)
 
