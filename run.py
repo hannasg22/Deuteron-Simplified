@@ -20,6 +20,7 @@ import find_energy as find
 # Find the correct value of E
 E_value = root_scalar(find.error_E, method='secant', x0=get.energy_guess())
 E_final = E_value.root
+print(f"'{E_final}' is the obtained eigenvalue for the deuteron!")
 
 # Get the eigenfunction with the proper E value, E_final
 solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_final),
