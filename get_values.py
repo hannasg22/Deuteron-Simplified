@@ -1,5 +1,5 @@
-"""This module takes out all the variables described in values_deuteron.jsonl
-to later apply them in the other files.
+"""This module takes all variables described in values_deuteron.jsonl
+to later apply them in the rest of the files.
 
 We have functions getting the values of:
     - Potential depth and range
@@ -41,7 +41,7 @@ def initial_conditions():
    
 def boundary_condition():
     file_name = "values_deuteron.jsonl"
-
+    
     # Open values_deuteron.jsonl file and read the boundary condition
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
@@ -66,7 +66,7 @@ def range_of_radius():
 def energy_guess():
     file_name = "values_deuteron.jsonl"
 
-    # Open values_deuteron.jsonl file and read the first guess for the energy
+    # Open values_deuteron.jsonl file and read the first guess for E
     with jsonlines.open(file_name, mode='r') as reader:
         for line in reader:
             if "Energy guess" in line:

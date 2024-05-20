@@ -1,10 +1,10 @@
-"""Results will be obtained through this part of the code. Here we define the
-root finding process to reach the energy and the visualization of the solution.
+"""Results are obtained in this part of the code. Here we define the
+root finding process to reach the energy and visualize the solution.
 
-To obtain our results we will use two functions implemented by SciPy:
-    1. optimize.root_scalar --> to find the E value which obeys the boundary
-                               condition
-    2. integrate.solve_ivp --> to get the eigenfunction with the proper E value
+To obtain our results we use two functions implemented by SciPy:
+    1. optimize.root_scalar --> to find the E value which obeys the
+                                boundary condition
+    2. integrate.solve_ivp --> to get the eigenfunction for the proper E
 """
 
 import numpy as np
@@ -12,6 +12,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 from scipy.optimize import root_scalar
+
 import potential as pot
 import schro_equation as eq
 import get_values as get
@@ -23,13 +24,13 @@ E_final = E_value.root
 print(f"'{E_final}' is the obtained eigenvalue for the deuteron!")
 
 # Get the eigenfunction with the proper E value, E_final
-solution_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_final),
-                           get.range_of_radius(), get.initial_conditions(),
-                           method = 'RK45', max_step = 0.01)
+sol_final = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_final),
+                      get.range_of_radius(), get.initial_conditions(),
+                      method = 'RK45', max_step = 0.01)
 
 # VISUALIZE u(r), V(r) and E vs. r. Settings for the graph
-r_values = solution_final.t
-u_values = solution_final.y[0]
+r_values = sol_final.t
+u_values = sol_final.y[0]
 V_values = [pot.V_c_squarewell(r) for r in r_values]
 
 sns.set_style('darkgrid')
@@ -47,3 +48,4 @@ plt.title('$u_s(r)$ vs. $r (fm)$', fontsize=16)
 plt.legend(fontsize=10, facecolor='black', edgecolor='white', labelcolor='white')
 plt.grid(True, which='both', linestyle='--', linewidth=0.5)
 plt.show()
+

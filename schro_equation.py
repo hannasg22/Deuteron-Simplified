@@ -34,14 +34,12 @@ def radial_equation(r, y, E):
         [dus, dvs]: the system of 1st order ODEs which will be solved
                     with SciPy
     """
-
     us, vs = y
     # Definition of needed parameters
     h_bar = 197.327 # Reduced Planck constant
     M = 938.918 # Twice the reduced mass of deuteron
-
+    
     # System of equations we want to solve
     dus = vs
     dvs = (M / (h_bar**2)) * (pot.V_c_squarewell(r) - E) * us
-
     return [dus, dvs]
