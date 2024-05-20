@@ -36,9 +36,9 @@ def error_E(E_guess):
     r_range = get.range_of_radius()
 
     # Solve system for E_guess
-    solution_guess = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_guess),
-                               r_range, ini_cond, method='RK45', max_step=0.01)
+    sol_guess = solve_ivp(lambda r, y: eq.radial_equation(r, y, E_guess),
+                          r_range, ini_cond, method='RK45', max_step=0.01)
     
     # Difference between solution with E_guess and the boundary condition
-    error = solution_guess.y[0][-1] - us_fin
+    error = sol_guess.y[0][-1] - us_fin
     return error
