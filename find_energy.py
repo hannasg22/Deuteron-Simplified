@@ -9,9 +9,7 @@ So, to carry out the integration we make use of the next SciPy function:
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
-from scipy.optimize import root_scalar
 
 import potential as pot
 import schro_equation as eq
