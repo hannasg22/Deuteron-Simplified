@@ -1,23 +1,25 @@
-"""This file contains all the tests to check that the code works as it should.
+"""This file contains tests to check that the code works as it should.
 
-We will check each function, see that the given result is of the type we are
-expecting and that the functions are actually doing what they are designed for.
+We check each function, see that the given result is of the type we are
+expecting and that the functions are doing what they are designed for.
 """
 
 import unittest
 import numpy as np
 from hypothesis import given, settings
 from hypothesis import strategies as st
+
 import get_values as get
 import potential as pot
 import schro_equation as eq
 import find_energy as find
 
+
 # TESTS FOR get_values.py
 class TestValues(unittest.TestCase):
-    """In each case we will make sure that the returned object is of the type
-    we expect. These will be the expected outputs' forms in order to use them
-    in the rest of the files.
+    """In each case we make sure that the returned object is of the type
+    we expect. These will be the expected outputs' forms in order to use
+    them in the rest of the files.
     """
 
     def test_central_V(self):
@@ -51,17 +53,18 @@ class TestValues(unittest.TestCase):
         # Tests if the function returns a float
         self.assertIsInstance(result, float)
 
+
 # TESTS FOR potential.py
 class TestCentralPotential(unittest.TestCase):
-    """We extract the depth and range of the potential from the real data and
-    compare the results we expect with the ones the function V_c_squarewell is
-    returning.
+    """We extract the depth and range of the potential from the real
+    data and compare the results we expect with the ones the function
+    V_c_squarewell is returning.
     """
     
     @given(r_values=st.data())
     @settings(max_examples=20)
     def test_V_c_squarewell(self, r_values):
-        # Get real values for the potential depth and range from the data file
+        # Get values of the potential depth and range from the data file
         V0_c, r0_c = get.central_V()      
         # Make different probe values of r
         r = r_values.draw(st.floats(min_value=0.0, max_value=10.0))
@@ -73,14 +76,16 @@ class TestCentralPotential(unittest.TestCase):
         # Define the value the function is returning
         result = pot.V_c_squarewell(r)
         # Tests if the function returns the expected V value
-        error_msg = f"""Error when calculating the potential value for r = {r},
-                     we expect the value {V_expected} but got {result}."""
+        error_msg = f"""Error when calculating the potential value for
+                     r = {r}, we expect the value {V_expected} but got
+                     {result}."""
         self.assertAlmostEqual(result, V_expected, msg=error_msg)
 
-# TEST FOR schro_equation.py
+
+# TESTS FOR schro_equation.py
 class TestSchroedingerEquation(unittest.TestCase):
-    """We just test if the function returns a list of floats and if the length
-    is the one we expect.
+    """We test if the function returns a list of floats and if the
+    length is the one we expect.
     """
     
     @given(st.floats(min_value=0.1, max_value=10.0), # r
@@ -99,24 +104,25 @@ class TestSchroedingerEquation(unittest.TestCase):
         self.assertIsInstance(result[0], (float, np.float64))
         self.assertIsInstance(result[1], (float, np.float64))
 
+
 # TESTS FOR find_energy.py
 class TestErrorE(unittest.TestCase):
-    """We test that for the actual value of the eigenvalue we get a small
-    error. This means that the function will find the root near that result.
-    BEWARE: the rest of the conditions must also be appropriate.
+    """We test that for the real value of the eigenvalue we get a small
+    error. This means that the function finds the root near that result.
     """
     
     def test_error_E(self):
-        # Define the real value of the eigenvalue of deuteron
-        E_real = -2.25 # MeV
+        # Define the real eigenvalue of deuteron (in MeV)
+        E_real = -2.2
         # Error value with real E value
         error_min = abs(find.error_E(E_real))
         # Tolerance we accept for the error
         eps = 0.1
         # Tests if the error obtained for the real E is actually small
-        error_msg = f"""This error function will not find the root near enough
-                     of the binding energy {E_real}."""
+        error_msg = f"""This error function will not find the root near
+                     enough of the binding energy {E_real}."""
         self.assertGreater(eps, error_min, msg=error_msg)
+
 
 if __name__ == '__main__':
     unittest.main()
